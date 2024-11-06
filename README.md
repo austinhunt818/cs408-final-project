@@ -42,6 +42,16 @@ able to figure out how to do that in the time frame of this project
 site where users could share their songs and other could see them, and could maybe comment and like them. This is a fun idea, but would more
 be something that I would try to implement after the class was over
 
+## Mockups
+
+Landing Page:
+![Landing Page](Mockups/landing_mockup.png)
+
+Compose Page:
+![Compose Page](Mockups/compose_mockup.png)
+
+View Page:
+![View Page](Mockups/view_mockup.png)
 
 
 
