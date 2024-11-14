@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Jingle Composer</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/style.css">
+  <link href='https://fonts.googleapis.com/css?family=Alexandria' rel='stylesheet'>
+</head>
+
+<body>
+  <a class="home" href="index.html"><img src="img/home.png"/></a>
+
+  <h1>Compose</h1>
+  <div class="content">
+
+    <input class="titleInput" type="text" placeholder="Jingle Title">
+
+    <img src="img/placeholder.png"> <!--Placeholder for actual interactive compose elements-->
+
+    <div class="controlRow">
+
+        <div class="composeSwitches">
+            <label name="coloredNotes" class="switch">
+                <input type="checkbox">
+                <span class="slider"></span>
+            </label>
+            <label for="coloredNotes">Colored Notes</label>
+
+            <label name="noteNames" class="switch">
+                <input type="checkbox">
+                <span class="slider"></span>
+            </label>
+            <label for="noteNames">Note Names</label>
+        </div>
+
+        <div class="composeButton">
+            <button name="playButton"><img class="playButton" src="img/play.png"/></button>
+            <label for="playButton">Play Song</label>
+        </div>
+
+        <div class="composeButton">
+            <button name="saveButton"><img class="saveButton" src="img/save.png"/></button>
+            <label for="saveButton">Save Song</label>
+        </div>
+
+    </div>
+
+  </div>
+</body>
+
+</html>
