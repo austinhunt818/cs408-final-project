@@ -1,15 +1,34 @@
 import { SplendidGrandPiano } from "https://unpkg.com/smplr/dist/index.mjs";
 
-window.onload = populateInteractiveGrid;
+window.onload = loaded;
 const context = new (window.AudioContext || window.webkitAudioContext)();
 const piano = new SplendidGrandPiano(context);
 
 const NOTE_NAMES = ['C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4', 'C5', 'D5', 'E5', 'F5', 'G5'];
 
-var songEncoding = window.location.search.substring(window.location.search.indexOf('songEncoding')+13);
+var songId = window.location.search.substring(window.location.search.indexOf('id')+3);
 
-var tempoFactor = Number(window.location.search.substring(window.location.search.indexOf('tempo')+6));
+var songEncoding = '';
+var tempoFactor = 3;
 document.getElementById('tempoSlider').value = tempoFactor;
+
+function loaded() {
+    if(songId != ''){
+        let xhr = new XMLHttpRequest();
+        xhr.addEventListener("load", function () {
+            var xhrResponse = JSON.parse(xhr.response);
+            songEncoding = xhrResponse.songEncoding;
+            tempoFactor = xhrResponse.tempo;
+            document.getElementById('tempoSlider').value = tempoFactor;
+            document.getElementById('titleInput').value = xhrResponse.name;
+            populateInteractiveGrid();
+        });
+        xhr.open("GET", `https://va4kva7kjc.execute-api.us-east-2.amazonaws.com/items/${songId}`);
+        xhr.send();
+    }
+    else populateInteractiveGrid();
+}
+
 var selectedNotes = ['-', '-', '-', '-', '-', '-', '-', '-', '-' ,'-', '-', '-', '-' ,'-', '-', '-'];
 
 function decodeSong(){
@@ -51,7 +70,6 @@ function populateInteractiveGrid() {
     selectedNotes.forEach((note, i) =>{
         if(note != '-'){
             var button = document.getElementById(note+ '-' + (i+1));
-            console.log(button);
             button.style.backgroundColor = 'green';
         } 
     });
@@ -74,11 +92,10 @@ document.querySelector('.interactiveContainer').addEventListener('click', functi
         }
         selectedNotes[selectedCol-1] = selectedButton;
     }
-    console.log(selectedNotes);
 });
 
 //Tempo slider functionality
-document.getElementById('tempoSlider').addEventListener('input', ()=>{tempoFactor=document.getElementById('tempoSlider').value; console.log(tempoFactor)});
+document.getElementById('tempoSlider').addEventListener('input', ()=>{tempoFactor=document.getElementById('tempoSlider').value;});
 
 document.getElementById("playButton").addEventListener('click', playSong);
 
@@ -105,11 +122,12 @@ function addSong(){
     });
     encodedSong  += "X";
 
+    console.log(songId);
     let xhr = new XMLHttpRequest();
     xhr.open("PUT", "https://va4kva7kjc.execute-api.us-east-2.amazonaws.com/items");
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.send(JSON.stringify({
-        "id": "",
+        "id": songId,
         "songEncoding": encodedSong,
         "name": name,
         "tempo": tempoFactor + "",

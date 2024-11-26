@@ -20,8 +20,39 @@ function populateList(listData){
               <p>` + listData[i].name + `</p>
               <p>${listData[i].songEncoding.substring(1,listData[i].songEncoding.length-1)}</p>
               <button><img class="songButton" src="img/play.png"></button>
-              <a href='compose.html?songEncoding=${listData[i].songEncoding}&tempo=${listData[i].tempo}'><img class="songButton" src="img/edit.png"></a>
+              <a href='compose.html?id=${listData[i].id}'><img class="songButton" src="img/edit.png"></a>
           </div>
         </li>`
     }
+}
+
+function decodeSong(){
+    if(songEncoding.charAt(0) == 'S'){
+        var encodeIndex = 1;
+        selectedNotes.forEach((note, i)=>{
+            if(songEncoding.charAt(encodeIndex) == '-') encodeIndex++;
+            else{
+                selectedNotes[i] = songEncoding.substring(encodeIndex,encodeIndex+2);
+                encodeIndex+=2;
+            }
+        })
+    }
+}
+
+function playSong(songEncoding){
+    var selectedNotes = ['-', '-', '-', '-', '-', '-', '-', '-', '-' ,'-', '-', '-', '-' ,'-', '-', '-'];
+    if(songEncoding.charAt(0) == 'S'){
+        var encodeIndex = 1;
+        selectedNotes.forEach((note, i)=>{
+            if(songEncoding.charAt(encodeIndex) == '-') encodeIndex++;
+            else{
+                selectedNotes[i] = songEncoding.substring(encodeIndex,encodeIndex+2);
+                encodeIndex+=2;
+            }
+        })
+    }
+    const now = context.currentTime;
+    selectedNotes.forEach((note, i) => {
+        piano.start({ note, time: now + i/tempoFactor, duration: 0.5 });
+    });
 }
