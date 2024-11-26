@@ -1,4 +1,3 @@
-import { Soundfont } from "https://unpkg.com/smplr/dist/index.mjs";
 import { SplendidGrandPiano } from "https://unpkg.com/smplr/dist/index.mjs";
 
 window.onload = populateInteractiveGrid;
@@ -6,6 +5,7 @@ const context = new (window.AudioContext || window.webkitAudioContext)();
 const piano = new SplendidGrandPiano(context);
 
 const NOTE_NAMES = ['C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4', 'C5', 'D5', 'E5', 'F5', 'G5'];
+var selectedNotes = ['-', '-', '-', '-', '-', '-', '-', '-', '-' ,'-', '-', '-', '-' ,'-', '-', '-'];
 
 function populateInteractiveGrid() {
     for(var i = 1; i <= 16; i++){
@@ -33,7 +33,7 @@ document.querySelector('.interactiveContainer').addEventListener('click', functi
     var selectedButton = '';
     var selectedCol = '';
     if(e.target.tagName === 'BUTTON'){
-        piano.start({ note: e.target.id.substring(0,2)})
+        piano.start({ note: e.target.id.substring(0,2), duration: .5});
         selectedButton = e.target.id.substring(0,2);
         selectedCol = e.target.id.substring(3);
         e.target.style.backgroundColor = 'green';
@@ -43,5 +43,16 @@ document.querySelector('.interactiveContainer').addEventListener('click', functi
                 button.style.backgroundColor = 'lightgrey';
             }
         }
+        selectedNotes[selectedCol-1] = selectedButton;
     }
+    console.log(selectedNotes);
 });
+
+document.getElementById("playButton").addEventListener('click', playSong);
+
+function playSong(){
+    const now = context.currentTime;
+    selectedNotes.forEach((note, i) => {
+        piano.start({ note, time: now + i/2, duration: 0.5 });
+    });
+}
