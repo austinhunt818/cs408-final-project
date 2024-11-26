@@ -18,9 +18,9 @@ function populateList(listData){
         ul.innerHTML += `<li>
           <div class="searchItem">
               <p>` + listData[i].name + `</p>
-              <img class="songInfo" src="img/placeholder.png"> <!--Placeholder for real song info-->
-              <img class="songButton" src="img/play.png">
-              <img class="songButton" src="img/edit.png">
+              <p>${listData[i].songEncoding.substring(1,listData[i].songEncoding.length-1)}</p>
+              <button><img class="songButton" src="img/play.png"></button>
+              <a href='compose.html?songEncoding=${listData[i].songEncoding}&tempo=${listData[i].tempo}'><img class="songButton" src="img/edit.png"></a>
           </div>
         </li>`
     }
