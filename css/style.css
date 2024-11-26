@@ -233,10 +233,11 @@ input:checked + .slider:before {
 .noteButton{
   width: 25px;
   height: 25px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 1px;
   text-align: center;
   font-size: .6rem;
+  border: 1px black;
+  background-color: lightgrey;
 }
 
 

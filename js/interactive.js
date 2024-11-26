@@ -30,7 +30,18 @@ function populateInteractiveGrid() {
 }
 
 document.querySelector('.interactiveContainer').addEventListener('click', function (e){
+    var selectedButton = '';
+    var selectedCol = '';
     if(e.target.tagName === 'BUTTON'){
         piano.start({ note: e.target.id.substring(0,2)})
+        selectedButton = e.target.id.substring(0,2);
+        selectedCol = e.target.id.substring(3);
+        e.target.style.backgroundColor = 'green';
+        for(var i = 0; i < 12; i++){
+            var button = document.querySelector(`#${NOTE_NAMES[i]}-${selectedCol}`);
+            if(!(button === e.target)){
+                button.style.backgroundColor = 'lightgrey';
+            }
+        }
     }
 });
