@@ -222,12 +222,14 @@ li p{
 }
 
 .interactiveContainer{
+
   display: flex;
   margin: 50px;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 0;
   align-content: center;
+
 }
 
 .noteColumn{
@@ -236,14 +238,23 @@ li p{
 }
 
 
+
 .noteButton{
-  width: 25px;
-  height: 25px;
-  margin: 1px;
+  width: 40px;
+  height: 20px;
+  margin: 0px;
   text-align: center;
   font-size: .6rem;
-  border: 1px black;
-  background-color: lightgrey;
+  border: none;
+  background-color: white;
+}
+
+
+.line{
+  background-color: none;
+  background-image: url("../img/line.png");
+  background-size: cover;
+  background-position: center;
 }
 
 input[type="range"]{

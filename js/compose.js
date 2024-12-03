@@ -51,18 +51,18 @@ function populateInteractiveGrid() {
     for(var i = 1; i <= 16; i++){
         document.querySelector('.interactiveContainer').innerHTML += `
         <div class="noteColumn" id="note-${i}">
-            <button class="noteButton" id="G5-${i}">G5</button>
-            <button class="noteButton" id="F5-${i}">F5</button>
-            <button class="noteButton" id="E5-${i}">E5</button>
-            <button class="noteButton" id="D5-${i}">D5</button>
-            <button class="noteButton" id="C5-${i}">C5</button>
-            <button class="noteButton" id="B4-${i}">B4</button>
-            <button class="noteButton" id="A4-${i}">A4</button>
-            <button class="noteButton" id="G4-${i}">G4</button>
-            <button class="noteButton" id="F4-${i}">F4</button>
-            <button class="noteButton" id="E4-${i}">E4</button>
-            <button class="noteButton" id="D4-${i}">D4</button>
-            <button class="noteButton" id="C4-${i}">C4</button>
+            <button class="noteButton" id="G5-${i}"></button>
+            <button class="noteButton line" id="F5-${i}"></button>
+            <button class="noteButton" id="E5-${i}"></button>
+            <button class="noteButton line" id="D5-${i}"></button>
+            <button class="noteButton" id="C5-${i}"></button>
+            <button class="noteButton line" id="B4-${i}"></button>
+            <button class="noteButton" id="A4-${i}"></button>
+            <button class="noteButton line" id="G4-${i}"></button>
+            <button class="noteButton" id="F4-${i}"></button>
+            <button class="noteButton line" id="E4-${i}"></button>
+            <button class="noteButton" id="D4-${i}"></button>
+            <button class="noteButton" id="C4-${i}"></button>
             <p class="noteLabel"> </p>
         </div>
         `;
@@ -70,7 +70,8 @@ function populateInteractiveGrid() {
     selectedNotes.forEach((note, i) =>{
         if(note != '-'){
             var button = document.getElementById(note+ '-' + (i+1));
-            button.style.backgroundColor = 'green';
+            button.style.backgroundColor = 'black';
+            button.style.backgroundImage = 'none';
         } 
     });
 }
@@ -83,11 +84,13 @@ document.querySelector('.interactiveContainer').addEventListener('click', functi
         piano.start({ note: e.target.id.substring(0,2), duration: .5});
         selectedButton = e.target.id.substring(0,2);
         selectedCol = e.target.id.substring(3);
-        e.target.style.backgroundColor = 'green';
+        e.target.style.backgroundColor = 'black';
+        e.target.style.backgroundImage = 'none';
         for(var i = 0; i < 12; i++){
             var button = document.querySelector(`#${NOTE_NAMES[i]}-${selectedCol}`);
             if(!(button === e.target)){
-                button.style.backgroundColor = 'lightgrey';
+                button.style.backgroundColor = 'white';
+                button.style.backgroundImage = 'url("../img/line.png")';
             }
         }
         selectedNotes[selectedCol-1] = selectedButton;

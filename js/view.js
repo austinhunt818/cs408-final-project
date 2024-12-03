@@ -1,4 +1,9 @@
+import { SplendidGrandPiano } from "https://unpkg.com/smplr/dist/index.mjs";
+
 window.onLoad = loaded;
+
+const context = new (window.AudioContext || window.webkitAudioContext)();
+const piano = new SplendidGrandPiano(context);
 
 var xhrResponse = [];
 function loaded() {
@@ -14,7 +19,7 @@ function loaded() {
 
 function populateList(listData){
     var ul = document.getElementById("searchView").children[0];
-    for(i=0;i<listData.length;i++){
+    for(var i=0;i<listData.length;i++){
         ul.innerHTML += `<li>
           <div class="searchItem">
               <p>` + listData[i].name + `</p>
@@ -22,22 +27,16 @@ function populateList(listData){
               <button><img class="songButton" src="img/play.png"></button>
               <a href='compose.html?id=${listData[i].id}'><img class="songButton" src="img/edit.png"></a>
           </div>
-        </li>`
+        </li>`;
+        document.getElementById("searchView").addEventListener('click', function(e){
+            if(e.target.class=='songButton'){
+                playSong(listData[i].songEncoding);
+            }
+        });
     }
+    
 }
 
-function decodeSong(){
-    if(songEncoding.charAt(0) == 'S'){
-        var encodeIndex = 1;
-        selectedNotes.forEach((note, i)=>{
-            if(songEncoding.charAt(encodeIndex) == '-') encodeIndex++;
-            else{
-                selectedNotes[i] = songEncoding.substring(encodeIndex,encodeIndex+2);
-                encodeIndex+=2;
-            }
-        })
-    }
-}
 
 function playSong(songEncoding){
     var selectedNotes = ['-', '-', '-', '-', '-', '-', '-', '-', '-' ,'-', '-', '-', '-' ,'-', '-', '-'];
