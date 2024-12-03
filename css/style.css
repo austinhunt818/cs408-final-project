@@ -247,6 +247,7 @@ li p{
   font-size: .6rem;
   border: none;
   background-color: white;
+  padding: 0px;
 }
 
 
@@ -256,6 +257,7 @@ li p{
   background-size: cover;
   background-position: center;
 }
+
 
 input[type="range"]{
   width: 40%;

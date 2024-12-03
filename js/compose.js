@@ -62,7 +62,7 @@ function populateInteractiveGrid() {
             <button class="noteButton" id="F4-${i}"></button>
             <button class="noteButton line" id="E4-${i}"></button>
             <button class="noteButton" id="D4-${i}"></button>
-            <button class="noteButton" id="C4-${i}"></button>
+            <button class="noteButton" id="C4-${i}">------------</button>
             <p class="noteLabel"> </p>
         </div>
         `;
