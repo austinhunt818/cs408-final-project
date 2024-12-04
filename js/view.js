@@ -19,13 +19,17 @@ function loaded() {
 
 function populateList(listData){
     var ul = document.getElementById("searchView").children[0];
+    ul.innerHTML = '';
     for(var i=0;i<listData.length;i++){
+
         ul.innerHTML += `<li>
           <div class="searchItem">
-              <p>` + listData[i].name + `</p>
+              <p>${listData[i].name}</p>
               <p>${listData[i].songEncoding.substring(1,listData[i].songEncoding.length-1)}</p>
-              <button><img class="songButton" src="img/play.png"></button>
-              <a href='compose.html?id=${listData[i].id}'><img class="songButton" src="img/edit.png"></a>
+              <div class='songOptions'>
+                <button><img class="songButton" src="img/play.png"></button>
+                <a href='compose.html?id=${listData[i].id}'><img class="songButton" src="img/edit.png"></a>
+              </div>
           </div>
         </li>`;
         document.getElementById("searchView").addEventListener('click', function(e){
@@ -55,3 +59,21 @@ function playSong(songEncoding){
         piano.start({ note, time: now + i/tempoFactor, duration: 0.5 });
     });
 }
+
+
+
+var search = document.getElementById("search");
+search.addEventListener('input', function (e){
+    var query = search.value;
+    console.log(query);
+    if(query == ''){
+        document.getElementById('searchView').children[0].innerHTML = '';
+        populateList(xhrResponse);
+        return;
+    }
+    var newUl = [];
+    xhrResponse.forEach((item, i)=>{
+        if(item.name.includes(query)) newUl.push(item);
+    });
+    populateList(newUl);
+});

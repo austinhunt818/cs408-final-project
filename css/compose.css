@@ -1,0 +1,80 @@
+#titleInput{
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    background-color: transparent;
+    font-family: 'Alexandria';
+    font-size: 2rem;
+    border: lightgray 1px dotted;
+    margin-bottom: 10px;
+  }
+  
+  .controlRow{
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  .composeButton{
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .composeButton button{
+    background-color: transparent;
+    border: transparent;
+  }
+  
+  .composeButton button img{
+    height: 100px;
+  }
+
+  .interactiveContainer{
+
+    display: flex;
+    margin: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0;
+    align-content: center;
+  
+  }
+  
+  .noteColumn{
+    display: flex;
+    flex-direction: column;
+  }
+  
+  
+  
+  .noteButton{
+    width: 40px;
+    height: 20px;
+    margin: 0px;
+    text-align: center;
+    font-size: .6rem;
+    border: none;
+    background-color: white;
+    padding: 0px;
+  }
+  
+  
+  .line{
+    background-color: none;
+    background-image: url("../img/line.png");
+    background-size: cover;
+    background-position: center;
+  }
+  
+  
+  input[type="range"]{
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0;
+  }
