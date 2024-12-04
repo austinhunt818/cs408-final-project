@@ -22,28 +22,33 @@ function populateList(listData){
     ul.innerHTML = '';
     for(var i=0;i<listData.length;i++){
 
+
         ul.innerHTML += `<li>
           <div class="searchItem">
               <p>${listData[i].name}</p>
               <p>${listData[i].songEncoding.substring(1,listData[i].songEncoding.length-1)}</p>
               <div class='songOptions'>
-                <button><img class="songButton" src="img/play.png"></button>
+                <button><img class="songButton" id="${listData[i].songEncoding}-${listData[i].tempo}" src="img/play.png"></button>
                 <a href='compose.html?id=${listData[i].id}'><img class="songButton" src="img/edit.png"></a>
               </div>
           </div>
         </li>`;
-        document.getElementById("searchView").addEventListener('click', function(e){
-            if(e.target.class=='songButton'){
-                playSong(listData[i].songEncoding);
-            }
-        });
+       
     }
     
 }
 
+document.getElementById("searchView").addEventListener('click', function(e){
+    console.log(e.target.id);
+    if(e.target.tagName=='IMG'){
+        playSong(e.target.id);
+    }
+});
+
 
 function playSong(songEncoding){
     var selectedNotes = ['-', '-', '-', '-', '-', '-', '-', '-', '-' ,'-', '-', '-', '-' ,'-', '-', '-'];
+    var tempoFactor = 3;
     if(songEncoding.charAt(0) == 'S'){
         var encodeIndex = 1;
         selectedNotes.forEach((note, i)=>{
@@ -53,6 +58,7 @@ function playSong(songEncoding){
                 encodeIndex+=2;
             }
         })
+        tempoFactor = songEncoding.substring(encodeIndex+2);
     }
     const now = context.currentTime;
     selectedNotes.forEach((note, i) => {
