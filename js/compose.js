@@ -145,6 +145,19 @@ function playSong(){
 function addSong(){
     console.log("add");
     var name = document.getElementById('titleInput').value;
+
+    //sanitization
+    if(name.length <1){
+        alert("Please enter a name");
+        return;
+    }
+    var specialPattern = /[^A-Za-z0-9 ]/
+    if(specialPattern.test(name)){
+        alert("No special characters allowed");
+        return;
+    }
+
+
     var encodedSong = "S";
 
     selectedNotes.forEach((note) => {
