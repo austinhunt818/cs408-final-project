@@ -17,14 +17,47 @@ var songId = window.location.search.substring(window.location.search.indexOf('id
 
 var songEncoding = '';
 var tempoFactor = 3;
-document.getElementById('tempoSlider').value = tempoFactor;
+
 
 /**
  * Loads initial event listeners, song data, and populates the interactive grid accordingly
  */
 function loaded() {
+    if (typeof window !== 'undefined' && window.QUnit) {
+        return;
+      }
+
+    /**
+     * Functionality for selecting the notes and changing the ui accordingly
+     */
+    document.querySelector('.interactiveContainer').addEventListener('click', function (e){
+        var selectedButton = '';
+        var selectedCol = '';
+        if(e.target.tagName === 'BUTTON'){
+            piano.start({ note: e.target.id.substring(0,2), duration: .5});
+            selectedButton = e.target.id.substring(0,2);
+            selectedCol = e.target.id.substring(3);
+            e.target.style.backgroundColor = 'black';
+            e.target.style.backgroundImage = 'none';
+            for(var i = 0; i < 12; i++){
+                var button = document.querySelector(`#${NOTE_NAMES[i]}-${selectedCol}`);
+                if(!(button === e.target)){
+                    button.style.backgroundColor = 'white';
+                    button.style.backgroundImage = 'url("../img/line.png")';
+                }
+            }
+            selectedNotes[selectedCol-1] = selectedButton;
+        }
+    });
+
+    //Tempo slider functionality
+    document.getElementById('tempoSlider').addEventListener('input', ()=>{tempoFactor=document.getElementById('tempoSlider').value;});
+
+    document.getElementById('tempoSlider').value = tempoFactor;
     document.getElementById('saveButton').addEventListener('click', addSong);
     document.getElementById("playButton").addEventListener('click', playSong);
+
+
     if(songId != ''){
         document.querySelector('.controlRow').innerHTML+= `<div class="composeButton">
           <button name="deleteButton"><img class="deleteButton" id="deleteButton" src="img/delete.png"/></button>
@@ -49,24 +82,29 @@ function loaded() {
         xhr.send();
     }
     else populateInteractiveGrid();
+
+    
 }
 
 var selectedNotes = ['-', '-', '-', '-', '-', '-', '-', '-', '-' ,'-', '-', '-', '-' ,'-', '-', '-'];
 
 /**
  * Decodes the song from the song encoding if the song is being loaded from the database into the selected notes array 
+ * @returns a copy of selectedNotes for testing reasons
  */
-function decodeSong(){
-    if(songEncoding.charAt(0) == 'S'){
+export function decodeSong(encoding){
+    if(encoding.charAt(0) == 'S'){
+        console.log("DECODING");
         var encodeIndex = 1;
         selectedNotes.forEach((note, i)=>{
-            if(songEncoding.charAt(encodeIndex) == '-') encodeIndex++;
+            if(encoding.charAt(encodeIndex) == '-') encodeIndex++;
             else{
-                selectedNotes[i] = songEncoding.substring(encodeIndex,encodeIndex+2);
+                selectedNotes[i] = encoding.substring(encodeIndex,encodeIndex+2);
                 encodeIndex+=2;
             }
         })
     }
+    return selectedNotes;
 }
 
 
@@ -74,7 +112,7 @@ function decodeSong(){
  * Dynamically populates the interactive portion of the page using a grid of buttons that create an interactive music staff
  */
 function populateInteractiveGrid() {
-    decodeSong();
+    decodeSong(songEncoding);
     for(var i = 1; i <= 16; i++){
         document.querySelector('.interactiveContainer').innerHTML += `
         <div class="noteColumn" id="note-${i}">
@@ -103,31 +141,7 @@ function populateInteractiveGrid() {
     });
 }
 
-/**
- * Functionality for selecting the notes and changing the ui accordingly
- */
-document.querySelector('.interactiveContainer').addEventListener('click', function (e){
-    var selectedButton = '';
-    var selectedCol = '';
-    if(e.target.tagName === 'BUTTON'){
-        piano.start({ note: e.target.id.substring(0,2), duration: .5});
-        selectedButton = e.target.id.substring(0,2);
-        selectedCol = e.target.id.substring(3);
-        e.target.style.backgroundColor = 'black';
-        e.target.style.backgroundImage = 'none';
-        for(var i = 0; i < 12; i++){
-            var button = document.querySelector(`#${NOTE_NAMES[i]}-${selectedCol}`);
-            if(!(button === e.target)){
-                button.style.backgroundColor = 'white';
-                button.style.backgroundImage = 'url("../img/line.png")';
-            }
-        }
-        selectedNotes[selectedCol-1] = selectedButton;
-    }
-});
 
-//Tempo slider functionality
-document.getElementById('tempoSlider').addEventListener('input', ()=>{tempoFactor=document.getElementById('tempoSlider').value;});
 
 /**
  * Plays the song from the selected notes
