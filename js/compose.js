@@ -1,3 +1,10 @@
+/**
+ * This file handles the interactive music staff functionality and the database communication. It uses
+ * the smplr package to play notes, and to play them as a jingle.
+ * @author Austin Hunt
+ */
+
+
 import { SplendidGrandPiano } from "https://unpkg.com/smplr/dist/index.mjs";
 
 window.onload = loaded;
@@ -12,6 +19,9 @@ var songEncoding = '';
 var tempoFactor = 3;
 document.getElementById('tempoSlider').value = tempoFactor;
 
+/**
+ * Loads initial event listeners, song data, and populates the interactive grid accordingly
+ */
 function loaded() {
     document.getElementById('saveButton').addEventListener('click', addSong);
     document.getElementById("playButton").addEventListener('click', playSong);
@@ -43,6 +53,9 @@ function loaded() {
 
 var selectedNotes = ['-', '-', '-', '-', '-', '-', '-', '-', '-' ,'-', '-', '-', '-' ,'-', '-', '-'];
 
+/**
+ * Decodes the song from the song encoding if the song is being loaded from the database into the selected notes array 
+ */
 function decodeSong(){
     if(songEncoding.charAt(0) == 'S'){
         var encodeIndex = 1;
@@ -57,7 +70,9 @@ function decodeSong(){
 }
 
 
-//setup note buttons dynamically
+/**
+ * Dynamically populates the interactive portion of the page using a grid of buttons that create an interactive music staff
+ */
 function populateInteractiveGrid() {
     decodeSong();
     for(var i = 1; i <= 16; i++){
@@ -88,7 +103,9 @@ function populateInteractiveGrid() {
     });
 }
 
-//note selection functionality
+/**
+ * Functionality for selecting the notes and changing the ui accordingly
+ */
 document.querySelector('.interactiveContainer').addEventListener('click', function (e){
     var selectedButton = '';
     var selectedCol = '';
@@ -112,15 +129,9 @@ document.querySelector('.interactiveContainer').addEventListener('click', functi
 //Tempo slider functionality
 document.getElementById('tempoSlider').addEventListener('input', ()=>{tempoFactor=document.getElementById('tempoSlider').value;});
 
-
-
-
-
-
-//Save button functionality
-
-
-//Play song functionality
+/**
+ * Plays the song from the selected notes
+ */
 function playSong(){
     const now = context.currentTime;
     selectedNotes.forEach((note, i) => {
@@ -128,6 +139,9 @@ function playSong(){
     });
 }
 
+/**
+ * Encodes the song data and adds the song with the name and tempo into the database
+ */
 function addSong(){
     console.log("add");
     var name = document.getElementById('titleInput').value;
@@ -153,6 +167,9 @@ function addSong(){
     console.log(name);
 }
 
+/**
+ * Deletes the song if the song was loaded from the database
+ */
 function deleteSong(){
     let xhr = new XMLHttpRequest();
     xhr.open("DELETE", `https://va4kva7kjc.execute-api.us-east-2.amazonaws.com/items/${songId}`);

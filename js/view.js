@@ -1,11 +1,20 @@
+/**
+ * This file handles displaying and searching all the data from the database. Users can search the songs
+ * and play them, as well as viewing them on the compose page to edit them.
+ * @author Austin Hunt
+ */
+
 import { SplendidGrandPiano } from "https://unpkg.com/smplr/dist/index.mjs";
 
 window.onLoad = loaded;
 
 const context = new (window.AudioContext || window.webkitAudioContext)();
 const piano = new SplendidGrandPiano(context);
-
 var xhrResponse = [];
+
+/**
+ * Loads in the data from the database and calls necessary functions to display it
+ */
 function loaded() {
     let xhr = new XMLHttpRequest();
     xhr.addEventListener("load", function () {
@@ -17,12 +26,15 @@ function loaded() {
     xhr.send();
 }
 
-function populateList(listData){
+/**
+ * Populates the list view with the given json data
+ * @param {*} listData the json data to populate the list with
+ * @returns a copy of the ul after populating
+ */
+export function populateList(listData){
     var ul = document.getElementById("searchView").children[0];
     ul.innerHTML = '';
     for(var i=0;i<listData.length;i++){
-
-
         ul.innerHTML += `<li>
           <div class="searchItem">
               <p>${listData[i].name}</p>
@@ -35,9 +47,11 @@ function populateList(listData){
         </li>`;
        
     }
+    return ul;
     
 }
 
+//Calls play song for the list items
 document.getElementById("searchView").addEventListener('click', function(e){
     console.log(e.target.id);
     if(e.target.tagName=='IMG'){
@@ -46,7 +60,11 @@ document.getElementById("searchView").addEventListener('click', function(e){
 });
 
 
-function playSong(songEncoding){
+/**
+ * Plays a song from the given song encoding data
+ * @param {*} songEncoding the song data encoded into a string
+ */
+export function playSong(songEncoding){
     var selectedNotes = ['-', '-', '-', '-', '-', '-', '-', '-', '-' ,'-', '-', '-', '-' ,'-', '-', '-'];
     var tempoFactor = 3;
     if(songEncoding.charAt(0) == 'S'){
@@ -68,6 +86,9 @@ function playSong(songEncoding){
 
 
 
+/**
+ * This chunk implements the search functionality. It displays the data from the xhrResponse that matches the search query
+ */
 var search = document.getElementById("search");
 search.addEventListener('input', function (e){
     var query = search.value;
