@@ -13,7 +13,19 @@ var tempoFactor = 3;
 document.getElementById('tempoSlider').value = tempoFactor;
 
 function loaded() {
+    document.getElementById('saveButton').addEventListener('click', addSong);
+    document.getElementById("playButton").addEventListener('click', playSong);
     if(songId != ''){
+        document.querySelector('.controlRow').innerHTML+= `<div class="composeButton">
+          <button name="deleteButton"><img class="deleteButton" id="deleteButton" src="img/delete.png"/></button>
+          <label for="deleteButton">Delete Song</label>
+        </div>`;
+
+        document.getElementById('saveButton').addEventListener('click', addSong);
+        document.getElementById("playButton").addEventListener('click', playSong);
+        document.getElementById("deleteButton").addEventListener('click', deleteSong);
+
+
         let xhr = new XMLHttpRequest();
         xhr.addEventListener("load", function () {
             var xhrResponse = JSON.parse(xhr.response);
@@ -100,7 +112,13 @@ document.querySelector('.interactiveContainer').addEventListener('click', functi
 //Tempo slider functionality
 document.getElementById('tempoSlider').addEventListener('input', ()=>{tempoFactor=document.getElementById('tempoSlider').value;});
 
-document.getElementById("playButton").addEventListener('click', playSong);
+
+
+
+
+
+//Save button functionality
+
 
 //Play song functionality
 function playSong(){
@@ -109,11 +127,6 @@ function playSong(){
         piano.start({ note, time: now + i/tempoFactor, duration: 0.5 });
     });
 }
-
-
-//Save button functionality
-document.getElementById('saveButton').addEventListener('click', addSong);
-
 
 function addSong(){
     console.log("add");
@@ -138,6 +151,13 @@ function addSong(){
 
     
     console.log(name);
+}
+
+function deleteSong(){
+    let xhr = new XMLHttpRequest();
+    xhr.open("DELETE", `https://va4kva7kjc.execute-api.us-east-2.amazonaws.com/items/${songId}`);
+    xhr.send();
+    console.log(xhr);
 }
 
 
