@@ -69,7 +69,7 @@ function loaded() {
 
     if(songId != ''){
         document.querySelector('.controlRow').innerHTML+= `<div class="composeButton">
-          <button name="deleteButton"><img class="deleteButton" id="deleteButton" src="img/delete.png"/></button>
+          <button name="deleteButton"><img class="deleteButton" id="deleteButton" src="img/delete.png" alt="delete button"/></button>
           <label for="deleteButton">Delete Song</label>
         </div>`;
 
@@ -125,18 +125,18 @@ function populateInteractiveGrid() {
     for(var i = 1; i <= 16; i++){
         document.querySelector('.interactiveContainer').innerHTML += `
         <div class="noteColumn" id="note-${i}">
-            <button class="noteButton" id="G5-${i}"></button>
-            <button class="noteButton line" id="F5-${i}"></button>
-            <button class="noteButton" id="E5-${i}"></button>
-            <button class="noteButton line" id="D5-${i}"></button>
-            <button class="noteButton" id="C5-${i}"></button>
-            <button class="noteButton line" id="B4-${i}"></button>
-            <button class="noteButton" id="A4-${i}"></button>
-            <button class="noteButton line" id="G4-${i}"></button>
-            <button class="noteButton" id="F4-${i}"></button>
-            <button class="noteButton line" id="E4-${i}"></button>
-            <button class="noteButton" id="D4-${i}"></button>
-            <button class="noteButton" id="C4-${i}">------------</button>
+            <button class="noteButton" name="G5-${i}" id="G5-${i}"></button>
+            <button class="noteButton line" name="F5-${i}" id="F5-${i}"></button>
+            <button class="noteButton" name="E5-${i}" id="E5-${i}"></button>
+            <button class="noteButton line" name="D5-${i}" id="D5-${i}"></button>
+            <button class="noteButton" name="C5-${i}" id="C5-${i}"></button>
+            <button class="noteButton line" name="B5-${i}" id="B4-${i}"></button>
+            <button class="noteButton" name="A4-${i}" id="A4-${i}"></button>
+            <button class="noteButton line" name="G4-${i}" id="G4-${i}"></button>
+            <button class="noteButton" name="F4-${i}" id="F4-${i}"></button>
+            <button class="noteButton name="E4-${i}" line" id="E4-${i}"></button>
+            <button class="noteButton" name="D4-${i}" id="D4-${i}"></button>
+            <button class="noteButton" name="C4-${i}" id="C4-${i}">------------</button>
             <p class="noteLabel"> </p>
         </div>
         `;

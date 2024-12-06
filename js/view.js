@@ -40,8 +40,8 @@ export function populateList(listData){
               <p>${listData[i].name}</p>
               <p>${listData[i].songEncoding.substring(1,listData[i].songEncoding.length-1)}</p>
               <div class='songOptions'>
-                <button><img class="songButton" id="${listData[i].songEncoding}-${listData[i].tempo}" src="img/play.png"></button>
-                <a href='compose.html?id=${listData[i].id}'><img class="songButton" src="img/edit.png"></a>
+                <button><img class="songButton" id="${listData[i].songEncoding}-${listData[i].tempo}" src="img/play.png" alt="play button"></button>
+                <a href='compose.html?id=${listData[i].id}'><img class="songButton" src="img/edit.png" alt="edit button"></a>
               </div>
           </div>
         </li>`;
