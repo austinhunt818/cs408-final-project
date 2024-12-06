@@ -1,7 +1,8 @@
 # Jingle Composer
 Author: Austin Hunt
 
-## Project Specifications 
+
+## Project Specifications (Pre-Development)
 
 ### Overview
 Jingle Composer is a lightweight music composition website that allows users to create short jingles with an interactive and simple
@@ -52,6 +53,9 @@ Compose Page:
 
 View Page:
 ![View Page](Mockups/view_mockup.png)
+
+## Sources
+* [smplr package](https://github.com/danigb/smplr?tab=readme-ov-file) - package used for audio playback
 
 
 
