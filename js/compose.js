@@ -34,19 +34,28 @@ function loaded() {
         var selectedButton = '';
         var selectedCol = '';
         if(e.target.tagName === 'BUTTON'){
-            piano.start({ note: e.target.id.substring(0,2), duration: .5});
+            
             selectedButton = e.target.id.substring(0,2);
             selectedCol = e.target.id.substring(3);
-            e.target.style.backgroundColor = 'black';
-            e.target.style.backgroundImage = 'none';
-            for(var i = 0; i < 12; i++){
-                var button = document.querySelector(`#${NOTE_NAMES[i]}-${selectedCol}`);
-                if(!(button === e.target)){
-                    button.style.backgroundColor = 'white';
-                    button.style.backgroundImage = 'url("../img/line.png")';
-                }
+            if(selectedNotes[selectedCol-1] != '-' && e.target.id.includes(selectedNotes[selectedCol-1])){
+                e.target.style.backgroundColor = 'white';
+                e.target.style.backgroundImage = 'url("../img/line.png")';
+                selectedNotes[selectedCol-1] = '-';
             }
-            selectedNotes[selectedCol-1] = selectedButton;
+            else{
+                piano.start({ note: e.target.id.substring(0,2), duration: .5});
+                e.target.style.backgroundColor = 'black';
+                e.target.style.backgroundImage = 'none';
+                for(var i = 0; i < 12; i++){
+                    var button = document.querySelector(`#${NOTE_NAMES[i]}-${selectedCol}`);
+                    if(!(button === e.target)){
+                        button.style.backgroundColor = 'white';
+                        button.style.backgroundImage = 'url("../img/line.png")';
+                    }
+                }
+                selectedNotes[selectedCol-1] = selectedButton;
+            }
+            
         }
     });
 

@@ -9,7 +9,7 @@ h1{
 }
 
 .content{
-  margin-top: 5%;
+  margin-top:7%;
   margin-bottom: auto;
   display: flex;
   flex-direction: column;
@@ -31,4 +31,11 @@ h1{
   position: absolute;
   width: 50px;
   top: 1px;
+}
+
+.about-content{
+  margin-right: auto;
+  margin-left: auto;
+  text-align: center;
+  width: 60%;
 }
