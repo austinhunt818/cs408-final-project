@@ -125,18 +125,18 @@ function populateInteractiveGrid() {
     for(var i = 1; i <= 16; i++){
         document.querySelector('.interactiveContainer').innerHTML += `
         <div class="noteColumn" id="note-${i}">
-            <button class="noteButton" name="G5-${i}" id="G5-${i}"></button>
-            <button class="noteButton line" name="F5-${i}" id="F5-${i}"></button>
-            <button class="noteButton" name="E5-${i}" id="E5-${i}"></button>
-            <button class="noteButton line" name="D5-${i}" id="D5-${i}"></button>
-            <button class="noteButton" name="C5-${i}" id="C5-${i}"></button>
-            <button class="noteButton line" name="B5-${i}" id="B4-${i}"></button>
-            <button class="noteButton" name="A4-${i}" id="A4-${i}"></button>
-            <button class="noteButton line" name="G4-${i}" id="G4-${i}"></button>
-            <button class="noteButton" name="F4-${i}" id="F4-${i}"></button>
-            <button class="noteButton name="E4-${i}" line" id="E4-${i}"></button>
-            <button class="noteButton" name="D4-${i}" id="D4-${i}"></button>
-            <button class="noteButton" name="C4-${i}" id="C4-${i}">------------</button>
+            <button class="noteButton" aria-label="G5-${i}" id="G5-${i}"></button>
+            <button class="noteButton line" aria-label="F5-${i}" id="F5-${i}"></button>
+            <button class="noteButton" aria-label="E5-${i}" id="E5-${i}"></button>
+            <button class="noteButton line" aria-label="D5-${i}" id="D5-${i}"></button>
+            <button class="noteButton" aria-label="C5-${i}" id="C5-${i}"></button>
+            <button class="noteButton line" aria-label="B5-${i}" id="B4-${i}"></button>
+            <button class="noteButton" aria-label="A4-${i}" id="A4-${i}"></button>
+            <button class="noteButton line" aria-label="G4-${i}" id="G4-${i}"></button>
+            <button class="noteButton" aria-label="F4-${i}" id="F4-${i}"></button>
+            <button class="noteButton line" aria-label="E4-${i}" line" id="E4-${i}"></button>
+            <button class="noteButton" aria-label="D4-${i}" id="D4-${i}"></button>
+            <button class="noteButton" aria-label="C4-${i}" id="C4-${i}">------------</button>
             <p class="noteLabel"> </p>
         </div>
         `;
